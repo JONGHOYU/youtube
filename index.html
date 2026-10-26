@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>홍콩 여행 가이드 & 추천 영상 모음 | Hong Kong Travel Clips</title>
+  <meta name="description" content="홍콩 여행 브이로그, 필수 코스, 딤섬·길거리 미식 투어, 디즈니랜드 및 야경 명소 유튜브 추천 영상을 한눈에 모아보세요.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-badge">HK</span>
+        <div class="logo-text">
+          <span class="brand-title">HONG KONG</span>
+          <span class="brand-sub">TRAVEL ARCHIVE</span>
+        </div>
+      </div>
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="영상 제목, 크리에이터, 키워드 검색..." autocomplete="off">
+        <button id="clearSearchBtn" class="clear-btn" style="display: none;" title="검색 초기화">✕</button>
+      </div>
+      <div class="nav-actions">
+        <button id="bookmarkFilterBtn" class="pill-btn" title="북마크한 영상만 모아보기">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>북마크 (<span id="bookmarkCount">0</span>)</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">✨ 화려한 네온사인과 미식의 도시</div>
+      <h1 class="hero-title">매혹적인 홍콩 여행의 모든 것</h1>
+      <p class="hero-desc">인기 여행 유튜버들의 생생한 브이로그부터 숨겨진 딤섬 로컬 맛집, 3박 4일 완벽 일정, 디즈니랜드 공략까지 엄선된 영상을 만나보세요.</p>
+      
+      <!-- Quick Stats -->
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-num" id="totalVideosCount">0</span>
+          <span class="stat-label">선별된 추천 영상</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">6+</span>
+          <span class="stat-label">테마별 큐레이션</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">4K/HD</span>
+          <span class="stat-label">플레이어 즉시 재생</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filter Bar -->
+  <section class="filter-section">
+    <div class="filter-container">
+      <div class="category-tabs" id="categoryTabs">
+        <button class="category-btn active" data-category="all">
+          <span class="emoji">🇭🇰</span> 전체보기
+        </button>
+        <button class="category-btn" data-category="vlog">
+          <span class="emoji">✈️</span> 여행 브이로그
+        </button>
+        <button class="category-btn" data-category="food">
+          <span class="emoji">🥟</span> 미식 & 로컬 맛집
+        </button>
+        <button class="category-btn" data-category="course">
+          <span class="emoji">🗺️</span> 코스 & 여행 팁
+        </button>
+        <button class="category-btn" data-category="attraction">
+          <span class="emoji">🎡</span> 디즈니 & 테마파크
+        </button>
+        <button class="category-btn" data-category="nightview">
+          <span class="emoji">🌃</span> 야경 & 포토스팟
+        </button>
+      </div>
+
+      <!-- Sort Dropdown -->
+      <div class="sort-wrapper">
+        <label for="sortSelect">정렬:</label>
+        <select id="sortSelect" class="sort-select">
+          <option value="featured">추천순</option>
+          <option value="newest">최신순</option>
+          <option value="views">인기순 (조회수)</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Grid -->
+  <main class="main-container">
+    <div class="results-header">
+      <span class="results-count" id="resultsCount">총 <strong>0</strong>개의 영상</span>
+      <span class="active-filter-badge" id="activeFilterBadge" style="display: none;"></span>
+    </div>
+
+    <div class="video-grid" id="videoGrid">
+      <!-- Video cards will be injected by JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <div class="empty-icon">🔍</div>
+      <p class="empty-title">검색 결과가 없습니다</p>
+      <p class="empty-desc">다른 검색어나 카테고리 필터를 선택해보세요.</p>
+      <button class="reset-filter-btn" id="resetFilterBtn">전체 영상 보기</button>
+    </div>
+  </main>
+
+  <!-- YouTube Modal Player -->
+  <div class="modal-backdrop" id="videoModal" style="display: none;">
+    <div class="modal-dialog">
+      <button class="modal-close" id="modalCloseBtn" aria-label="닫기">✕</button>
+      <div class="modal-video-wrapper">
+        <iframe id="modalIframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="modal-info">
+        <div class="modal-header-row">
+          <span class="modal-category" id="modalCategory">카테고리</span>
+          <button class="modal-bookmark-btn" id="modalBookmarkBtn">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span id="modalBookmarkText">북마크</span>
+          </button>
+        </div>
+        <h2 class="modal-title" id="modalTitle">영상 제목</h2>
+        <div class="modal-meta">
+          <span class="modal-creator" id="modalCreator">크리에이터</span>
+          <span class="dot">•</span>
+          <span class="modal-views" id="modalViews">조회수</span>
+          <span class="dot">•</span>
+          <span class="modal-duration" id="modalDuration">재생시간</span>
+        </div>
+        <p class="modal-desc" id="modalDesc">설명 문구</p>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-footer-actions">
+          <a href="#" id="modalExternalLink" target="_blank" rel="noopener noreferrer" class="external-youtube-btn">
+            YouTube에서 직접 보기
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="brand-title">🇭🇰 HONG KONG TRAVEL CURATION</span>
+        <p>홍콩 자유여행 준비자를 위한 필수 유튜브 클립 모음집</p>
+      </div>
+      <p class="footer-copy">© 2026 Hong Kong Travel Archive. All YouTube videos belong to their respective creators.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
